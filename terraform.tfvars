@@ -1,0 +1,11 @@
+gcp_project_name     = "nollen-test"
+vpc_name             = "terraform-vpc-01"
+vpc_cidr             = "192.168.6.0/24"
+my_ip_address        = "98.148.51.154"
+my_linux_user        = "nollen"
+gcp_region           = "us-central1"
+create_gcp_instances = "yes"
+crdb_nodes           = 3
+crdb_version         = "22.2.8"
+run_init             = "yes"
+join_string          = ""
