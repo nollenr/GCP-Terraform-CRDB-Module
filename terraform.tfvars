@@ -19,3 +19,20 @@ app_instance_type    = "e2-micro"
 create_admin_user    = "no"
 admin_user_name      = "ron"
 include_demo         = "no"
+
+# If this is multi-cloud, then provide the following
+  #ca.key
+#   tls_private_key = <<-EOT
+# EOT
+  #ca.pub
+#   tls_public_key  = <<-EOT
+# EOT
+  #ca.crt
+#   tls_cert        = <<-EOT
+# EOT
+  #client.name.crt
+#   tls_user_cert   = <<-EOT
+# EOT
+  #client.name.key
+#   tls_user_key    = <<-EOT
+# EOT
