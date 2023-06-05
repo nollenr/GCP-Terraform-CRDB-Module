@@ -1,0 +1,19 @@
+DONE:  HA Proxy / Create
+    DONE:  configure HA Proxy 
+    DONE:  be sure to change the "count" to include "create_gcp_instances" when testing is complete.
+DONE:   app node / Create
+    DONE:   install MR Demo
+    DONE:   be sure to change the "count" to include "create_gcp_instances" when testing is complete.
+
+
+tags
+    check out tags on crdb instances (foo, bar)
+
+
+
+
+
+
+Installing collected packages: greenlet, typing-extensions, zipp, importlib-metadata, sqlalchemy
+
+PermissionError: [Errno 13] Permission denied: '/usr/local/lib/python3.6

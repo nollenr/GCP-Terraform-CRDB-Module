@@ -61,7 +61,7 @@
     }
 
 # ----------------------------------------
-# Create EC2 Instances
+# Create Compute Instances
 # ----------------------------------------
   variable "create_gcp_instances" {
     description = "create the ec2 instances (yes/no)?  If set to 'no', then only the VPC, subnets, routes tables, routes, peering, etc are created"
@@ -92,6 +92,12 @@
       }
     }
 
+    variable "crdb_instance_type" {
+      description = "The GCP instance type for the crdb instances."
+      type        = string
+      default     = "n2-standard-4"
+    }
+
     variable "run_init" {
       description = "'yes' or 'no' to run init on the cluster"
       type        = string
@@ -111,9 +117,13 @@
       default     = "22.2.5"
       validation  {
         condition = contains([
+          "23.1.2",
+          "23.1.1",
           "23.1.0-beta.2",
           "23.1.0-alpha.8",
           "23.1.0-alpha.4",
+          "22.2.10",
+          "22.2.9",
           "22.2.8",
           "22.2.7",
           "22.2.6",
@@ -154,6 +164,74 @@
         error_message = "Select an appropriate 'crdb_version' for the CockroachDB Instances.  See the list in variables.tf"
       }
     }
+
+# ----------------------------------------
+# HA Proxy Instance Specifications
+# ----------------------------------------
+    variable "include_ha_proxy" {
+      description = "'yes' or 'no' to include an HAProxy Instance"
+      type        = string
+      default     = "yes"
+      validation {
+        condition = contains(["yes", "no"], var.include_ha_proxy)
+        error_message = "Valid value for variable 'include_ha_proxy' is : 'yes' or 'no'"        
+      }
+    }
+
+    variable "haproxy_instance_type" {
+      description = "HA Proxy Instance Type"
+      type        = string
+      default     = "e2-micro"
+    }
+
+# ----------------------------------------
+# APP
+# ----------------------------------------
+    variable "include_app_instance" {
+      description = "'yes' or 'no' to include an Application Instance"
+      type        = string
+      default     = "yes"
+      validation {
+        condition = contains(["yes", "no"], var.include_app_instance)
+        error_message = "Valid value for variable 'include_app_instance' is : 'yes' or 'no'"        
+      }
+    }
+
+    variable "app_instance_type" {
+      description = "App Instance Type"
+      type        = string
+      default     = "e2-micro"
+    }
+
+# ----------------------------------------
+# Demo
+# ----------------------------------------
+    variable "include_demo" {
+      description = "'yes' or 'no' to include an HAProxy Instance"
+      type        = string
+      default     = "yes"
+      validation {
+        condition = contains(["yes", "no"], var.include_demo)
+        error_message = "Valid value for variable 'include_demo' is : 'yes' or 'no'"        
+      }
+    }
+
+    variable "create_admin_user" {
+      description = "'yes' or 'no' to create an admin user in the database.  This might only makes sense when adding an app instance since the certs will be created and configured automatically for connection to the database."
+      type        = string
+      default     = "yes"
+      validation {
+        condition = contains(["yes", "no"], var.create_admin_user)
+        error_message = "Valid value for variable 'include_ha_proxy' is : 'yes' or 'no'"        
+      }      
+    }
+
+    variable "admin_user_name"{
+      description = "An existing admin user that will be used to run the multi-region/multi-cloud demo"
+      type        = string
+      default     = ""
+    }
+
 
 # ----------------------------------------
 # TLS Vars -- Leave blank to have then generated
